@@ -82,3 +82,91 @@
 // =============================================================================
 
 
+
+const readlineSync = require("readline-sync");
+
+let tasks = [];
+
+
+function addTask() {
+    let task = readlineSync.question("Enter task: ");
+    if (task.trim() == "") {
+        console.log("Task can't be empty!\n");
+        return;
+    }
+
+    tasks.push(task);
+    console.log(`Task added: "${task}"\n`);
+}
+
+
+function viewTasks() {
+    if (tasks.length == 0) {
+        console.log("No available tasks to display!\n");
+        return;
+    }
+
+    console.log("Your Tasks:");
+    for (let i = 0; i < tasks.length; i++) {
+        console.log(`${i+1}. ${tasks[i]}`);
+    }
+
+    console.log();
+}
+
+
+function deleteTask() {
+    if (tasks.length == 0) {
+        console.log("No tasks available to delete!\n");
+        return;
+    }
+    viewTasks();
+    
+    let taskNum = readlineSync.questionInt("Enter task number to delete: ");
+
+    if (taskNum < 1 || taskNum > tasks.length) {
+        console.log("Invalid task number\n");
+        return;
+    }
+    else {
+        const deletedTask = tasks.splice(taskNum-1, 1);
+        console.log(`Task "${deletedTask}" has been removed\n`);
+    }
+}
+
+
+function main() {
+    while (true) {
+        console.log("============================");
+        console.log("     TO-DO LIST MENU        ");
+        console.log("============================");
+        console.log("1. Add task");
+        console.log("2. View tasks");
+        console.log("3. Delete task");
+        console.log("4. Quit");
+
+        let userChoice = readlineSync.questionInt("Enter your choice (1-4): ");
+
+        if (userChoice < 1 || userChoice > 4) {
+            console.log("Enter a number from 1 to 4!\n");
+        }
+        else {
+            if (userChoice == 1) {
+                addTask();
+            }
+            else if (userChoice == 2) {
+                viewTasks();
+            }
+            else if (userChoice == 3) {
+                deleteTask();
+            }
+            else if (userChoice == 4) {
+                console.log("Goodbye!");
+                return;
+            }
+        }
+
+    }
+}
+
+main();
