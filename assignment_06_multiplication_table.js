@@ -60,3 +60,50 @@
 // =============================================================================
 
 
+
+const readlineSync = require("readline-sync");
+
+function singleTable(n) {
+    console.log(`Multiplication Table for ${n}:`);
+
+    for (let i = 1; i < 13; i++) {
+        let result = n * i;
+        console.log(`${n} x ${i} = ${result}`);
+    }
+}
+
+
+function multiTable(n) {
+    for (let i  = 1; i < n; i++) {
+        singleTable(i);
+        console.log("---------------------------");
+    }
+    singleTable(n);
+}
+
+
+function main() {
+    console.log("Part A: Single Table");
+    let num = readlineSync.questionInt("Enter a positive number: ");
+
+    if (num <= 0) {
+        console.log("Number must be a positive integer!");
+        return;
+    }
+
+    console.log();
+    singleTable(num);
+
+    console.log("\n\nPart B: Tables from 1 to N");
+    let numLimit = readlineSync.questionInt("Enter a positive number: ");
+
+    if (numLimit <= 0) {
+        console.log("Number must be a positive integer!");
+        return;
+    }
+
+    console.log();
+    multiTable(numLimit);
+}
+
+main();
