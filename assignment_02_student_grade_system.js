@@ -50,3 +50,48 @@
 // =============================================================================
 
 
+
+const readlineSync = require("readline-sync");
+
+function getGrade(score) {
+    let grade = null;
+
+    if (score < 0 || score > 100) {
+        return grade;
+    }
+    else {
+        if (score >= 80) {
+            grade = "A";
+        }
+        else if (score >= 70 && score <= 79) {
+            grade = "B";
+        }
+        else if (score >= 60 && score <= 69) {
+            grade = "C";
+        }
+        else if (score >= 50 && score <= 59) {
+            grade = "D";
+        }
+        else {
+            grade = "F";
+        }
+    }
+
+    return grade;
+}
+
+
+function main() {
+    let studentScore = readlineSync.questionInt("Enter student score (0-100): ");
+    let studentGrade = getGrade(studentScore);
+
+    if (studentGrade == null) {
+        console.log("Error: Score must be between 0 and 100.");
+    }
+    else {
+        console.log(`Grade: ${studentGrade}`)
+    }
+}
+
+
+main();
