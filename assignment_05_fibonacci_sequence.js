@@ -55,3 +55,80 @@
 // =============================================================================
 
 
+
+const readlineSync = require("readline-sync");
+
+
+function fibSequence(terms) {
+    let display = "";
+
+    if (terms >= 1) {
+        display += "0 ";
+    }
+    if (terms >= 2) {
+        display += "1 ";
+    }
+
+    let previous = 0;
+    let current = 1;
+
+    for (let i = 2; i < terms; i++) {
+        let nextTerm = previous + current;
+        display += nextTerm + " ";
+        previous = current;
+        current = nextTerm;
+    }
+
+    return display;
+}
+
+
+function numInFib(num) {
+    let previous = 0;
+    let current = 1;
+
+    if (num === 0 || num === 1) {
+        return true;
+    }
+
+    while (current < num) {
+        let next = previous + current;
+        previous = current;
+        current = next;
+    }
+
+    return current === num;
+}
+
+
+function main() {
+    console.log("Part A - Print First N terms");
+
+    let termsCount = readlineSync.questionInt("\nHow many terms? ");
+
+    if (termsCount <= 0) {
+        console.log("Enter a positive integer!");
+    } else {
+        let sequenceResult = fibSequence(termsCount);
+        console.log("Fibonacci sequence: " + sequenceResult);
+    }
+
+    console.log("\nPart B - Check if a Number Belongs to the Sequence");
+
+    let numCheck = readlineSync.questionInt("\nEnter a number to check: ");
+
+    if (numCheck <= 0) {
+        console.log("Enter a positive integer!");
+    } else {
+        let checkResult = numInFib(numCheck);
+
+        if (checkResult === true) {
+            console.log(numCheck + " is a Fibonacci number.");
+        } else {
+            console.log(numCheck + " is NOT a Fibonacci number.");
+        }
+    }
+}
+
+
+main();
