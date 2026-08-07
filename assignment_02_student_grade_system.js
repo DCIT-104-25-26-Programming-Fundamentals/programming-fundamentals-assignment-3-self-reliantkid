@@ -85,7 +85,7 @@ function main() {
     let studentScore = readlineSync.questionInt("Enter student score (0-100): ");
     let studentGrade = getGrade(studentScore);
 
-    if (studentGrade == null) {
+    if (studentGrade === null) {
         console.log("Error: Score must be between 0 and 100.");
     }
     else {

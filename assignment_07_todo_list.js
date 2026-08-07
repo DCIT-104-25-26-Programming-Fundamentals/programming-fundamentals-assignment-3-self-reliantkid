@@ -101,7 +101,7 @@ function addTask() {
 
 
 function viewTasks() {
-    if (tasks.length == 0) {
+    if (tasks.length === 0) {
         console.log("No available tasks to display!\n");
         return;
     }
@@ -116,7 +116,7 @@ function viewTasks() {
 
 
 function deleteTask() {
-    if (tasks.length == 0) {
+    if (tasks.length === 0) {
         console.log("No tasks available to delete!\n");
         return;
     }
@@ -151,16 +151,16 @@ function main() {
             console.log("Enter a number from 1 to 4!\n");
         }
         else {
-            if (userChoice == 1) {
+            if (userChoice === 1) {
                 addTask();
             }
-            else if (userChoice == 2) {
+            else if (userChoice === 2) {
                 viewTasks();
             }
-            else if (userChoice == 3) {
+            else if (userChoice === 3) {
                 deleteTask();
             }
-            else if (userChoice == 4) {
+            else if (userChoice === 4) {
                 console.log("Goodbye!");
                 return;
             }
