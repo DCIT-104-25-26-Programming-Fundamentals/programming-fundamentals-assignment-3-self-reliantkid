@@ -75,3 +75,106 @@
 // =============================================================================
 
 
+
+const readlineSync = require("readline-sync");
+
+
+function addition(a, b) {
+    const result = (a + b).toFixed(2);
+    console.log(`Result: ${a} + ${b} = ${result}\n\n`);
+}
+
+
+function subtraction(a, b) {
+    const result = (a - b).toFixed(2);
+    console.log(`Result: ${a} - ${b} = ${result}\n\n`);
+}
+
+
+function multiplication(a, b) {
+    const result = (a * b).toFixed(2);
+    console.log(`Result: ${a} * ${b} = ${result}\n\n`);
+}
+
+
+function division(a, b) {
+    if (b === 0) {
+        console.log("Error: Cannot divide by zero!\n\n");
+        return;
+    }
+
+    const result = (a / b).toFixed(2);
+    console.log(`Result: ${a} / ${b} = ${result}\n\n`);
+}
+
+
+function modulus(a, b) {
+    if (b === 0) {
+        console.log("Error: Cannot perform modulus by zero!\n\n");
+        return;
+    }
+
+    const result = (a % b).toFixed(2);
+    console.log(`Result: ${a} % ${b} = ${result}\n\n`);
+}
+
+
+function expo(a, b) {
+    const result = (a ** b).toFixed(2);
+    console.log(`Result: ${a} ** ${b} = ${result}\n\n`);
+}
+
+
+function main() {
+    while (true) {
+        console.log("============================");
+        console.log("     SIMPLE CALCULATOR      ");
+        console.log("============================");
+        console.log("1. Addition");
+        console.log("2. Subtraction");
+        console.log("3. Multiplication");
+        console.log("4. Division");
+        console.log("5. Modulus");
+        console.log("6. Exponentiation");
+        console.log("7. Quit");
+
+        let userChoice = readlineSync.questionInt("Select an operation (1-7): ");
+
+        if (userChoice < 1 || userChoice > 7) {
+            console.log("Enter a number from 1 to 7");
+        }
+        else {
+            if (userChoice === 7) {
+                console.log("Goodbye!");
+                return;
+            }
+
+            let num1 = readlineSync.questionFloat("Enter first number: ");
+            let num2 = readlineSync.questionFloat("Enter second number: ");
+
+            switch (userChoice) {
+                case 1:
+                    addition(num1, num2);
+                    break;
+                case 2:
+                    subtraction(num1, num2);
+                    break;
+                case 3:
+                    multiplication(num1, num2);
+                    break;
+                case 4:
+                    division(num1, num2);
+                    break;
+                case 5:
+                    modulus(num1, num2);
+                    break;
+                case 6:
+                    expo(num1, num2);
+                    break;
+            }
+
+        }
+    }
+}
+
+main();
