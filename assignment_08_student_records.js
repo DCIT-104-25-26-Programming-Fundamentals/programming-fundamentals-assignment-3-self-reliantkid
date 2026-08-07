@@ -85,3 +85,145 @@
 // =============================================================================
 
 
+
+const readlineSync = require("readline-sync");
+
+const studentsRecords = [];
+
+
+function calculateArrayAverage(scores) {
+    if (scores.length === 0) return 0;
+    const sum = scores.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    return sum / scores.length;
+}
+
+
+function addStudent() {
+    let studentName = readlineSync.question("Student name: ");
+    while (studentName.trim() === "") {
+        console.log("Student name can't be empty");
+        studentName = readlineSync.question("\nStudent name: ");
+    }
+
+    let studentID = readlineSync.questionInt("Student ID: ");
+
+    let scoreCount = readlineSync.questionInt("How many scores? ");
+
+    while (scoreCount < 1) {
+        console.log("Enter at least one score!");
+        scoreCount = readlineSync.questionInt("How many scores? ");
+    }
+
+    let studentScores = [];
+    for (let i = 0; i < scoreCount; i++) {
+        let score = readlineSync.questionInt(`Enter score ${i + 1}: `);
+
+        while (score < 0 || score > 100) {
+            console.log("Score should be from 0 to 100");
+            score = readlineSync.questionInt(`Enter score ${i + 1}: `);
+        }
+
+        studentScores.push(score);
+    }
+
+    const student = {
+        name: studentName,
+        id: studentID,
+        scores: studentScores
+    };
+
+    console.log(`Student "${student.name}" added successfully!\n\n`);
+    studentsRecords.push(student);
+}
+
+
+function displayAll() {
+    if (studentsRecords.length === 0) {
+        console.log("No students added yet!\n");
+        return;
+    }
+
+    let headerRow = "";
+    headerRow += "Name".padEnd(20, " ");
+    headerRow += "ID".padEnd(12, " ");
+    headerRow += "Scores".padEnd(24, " ");
+    headerRow += "Average";
+
+    console.log("\n" + headerRow);
+    console.log("-".repeat(65));
+
+    for (let i = 0; i < studentsRecords.length; i++) {
+        const student = studentsRecords[i];
+        const avg = calculateArrayAverage(student.scores).toFixed(2);
+
+        let currentRow = "";
+        currentRow += student.name.padEnd(20, " ");
+        currentRow += String(student.id).padEnd(12, " ");
+        currentRow += student.scores.join(", ").padEnd(24, " ");
+        currentRow += avg;
+
+        console.log(currentRow);
+    }
+    console.log();
+}
+
+
+function calcAverage() {
+    if (studentsRecords.length === 0) {
+        console.log("No students added yet!\n");
+        return;
+    }
+
+    let enteredID = readlineSync.questionInt("Enter student ID: ");
+    let foundStudent = null;
+
+    for (let i = 0; i < studentsRecords.length; i++) {
+        if (studentsRecords[i].id === enteredID) {
+            foundStudent = studentsRecords[i];
+            break;
+        }
+    }
+
+    if (foundStudent) {
+        const avg = calculateArrayAverage(foundStudent.scores).toFixed(2);
+        console.log(`${foundStudent.name}'s average score: ${avg}\n`);
+    } else {
+        console.log(`Error: Student ID ${enteredID} not found.\n`);
+    }
+}
+
+
+function main() {
+    while (true) {
+        console.log("================================");
+        console.log("   STUDENT RECORD SYSTEM MENU   ");
+        console.log("================================");
+        console.log("1. Add student");
+        console.log("2. Display all students");
+        console.log("3. Calculate average score");
+        console.log("4. Quit");
+
+        let userChoice = readlineSync.questionInt("Enter your choice (1-4): ");
+
+        if (userChoice < 1 || userChoice > 4) {
+            console.log("Enter a number from 1 to 4");
+        }
+        else {
+            if (userChoice === 1) {
+                addStudent();
+            }
+            else if (userChoice === 2) {
+                displayAll();
+            }
+            else if (userChoice === 3) {
+                calcAverage();
+            }
+            else if (userChoice === 4) {
+                console.log("Goodbye!");
+                return;
+            }
+        }
+    }
+}
+
+main();
